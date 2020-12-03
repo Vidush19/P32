@@ -3,8 +3,8 @@ class Rope{
     var options = {
       bodyA: bodyA,
       pointB: pointB,
-      stiffness: 0.01,
-      length: 5,
+      stiffness: 0.05,
+      length: 8,
     };
     this.bodyA = bodyA;
     this.pointB = pointB;
@@ -14,6 +14,10 @@ class Rope{
 
   fly() {
     this.sling.bodyA = null;
+  }
+
+  attach(body) {
+    this.sling.bodyA = body;
   }
 
   display() {

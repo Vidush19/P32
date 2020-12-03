@@ -92,6 +92,7 @@ function draw() {
   textStyle(BOLD);
   textSize(26);
   text("Drag the hexagonal block and launch it to knock out the pins",30,50);
+  text("Press Space to throw again",250,75);
 }
 
 
@@ -104,4 +105,12 @@ function mouseDragged(){
 function mouseReleased(){
   sling.fly();
   gameState = "launched";
+}
+
+function keyPressed(){
+  if(keyCode==32 && gameState==="launched"){
+    Matter.Body.setPosition(polygon.body,{x:width/7, y:height/2+50});
+    sling.attach(polygon.body);
+    gameState = "start";
+  }
 }
