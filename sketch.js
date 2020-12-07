@@ -10,9 +10,11 @@ var sling, polygon;
 var pin1, pin2, pin3, pin4, pin5, pin6, pin7, pin8, pin9, pin10, pin11, pin12, pin13, pin14, pin15, pin16;
 var pin01, pin02, pin03, pin04, pin05, pin06, pin07, pin08, pin09;
 var gameState = "start";
+var backgroundImg;
+var score = 0;
 
 function preload(){
-  bg = loadImage("bg.jpg");
+  getBackgroundImg();
 }
 function setup() {
   createCanvas(800, 500);
@@ -54,9 +56,10 @@ function setup() {
 }
 
 function draw() {
-  Engine.update(engine);
-  background(bg);
+  if(backgroundImg)
+  background(backgroundImg);
   rectMode(CENTER);
+  Engine.update(engine);
   ground1.display();
   ground2.display();
   ground3.display();
@@ -88,11 +91,44 @@ function draw() {
   pin08.display();
   pin09.display();
 
+  pin1.score();
+  pin2.score();
+  pin3.score();
+  pin4.score();
+  pin5.score();
+  pin6.score();
+  pin7.score();
+  pin8.score();
+  pin9.score();
+  pin10.score();
+  pin11.score();
+  pin12.score();
+  pin13.score();
+  pin14.score();
+  pin15.score();
+  pin16.score();
+  pin01.score();
+  pin02.score();
+  pin03.score();
+  pin04.score();
+  pin05.score();
+  pin06.score();
+  pin07.score();
+  pin08.score();
+  pin09.score();
+
+
+
   fill("#71E83C");
   textStyle(BOLD);
   textSize(26);
   text("Drag the hexagonal block and launch it to knock out the pins",30,50);
   text("Press Space to throw again",250,75);
+
+  fill("#F1F604");
+  textStyle(BOLD);
+  textSize(28);
+  text("Score: "+score,40,150);
 }
 
 
@@ -113,4 +149,21 @@ function keyPressed(){
     sling.attach(polygon.body);
     gameState = "start";
   }
+}
+
+async function getBackgroundImg(){
+  var response = await fetch("http://worldtimeapi.org/api/timezone/Asia/Kolkata");
+  var responseJSON = await response.json();
+
+  var datetime = responseJSON.datetime;
+  var hour = datetime.slice(11,13);
+  
+  if(hour>=0600 && hour<=1900){
+      bg = "bg1.jpg";
+  }
+  else{
+      bg = "bg2.jpg";
+  }
+
+  backgroundImg = loadImage(bg);
 }

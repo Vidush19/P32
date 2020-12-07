@@ -13,7 +13,13 @@ class Box{
         this.width = width;
         this.height = height;
         this.body = Bodies.rectangle(this.x,this.y,this.width,this.height,options);
+        this.Visiblity = 255;
         World.add(world,this.body);
+    }
+    score(){
+        if(this.Visiblity<0 && this.Visiblity>-105){
+            score++;
+        }
     }
     display(){
         if(this.body.speed<5){
@@ -25,12 +31,11 @@ class Box{
             pop();
         }
         else{
+            World.remove(world, this.body);
             push();
-            var pos = this.body.position;
-            World.remove(world,this.body);
-            this.Visiblity -= 1;
+            this.Visiblity = this.Visiblity - 5;
             tint(255,this.Visiblity);
-            image(this.image1,pos.x,pos.y,25,60);
+            image(this.image, this.body.position.x, this.body.position.y, 25, 60);
             pop();
         }
     }
